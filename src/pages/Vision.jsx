@@ -463,13 +463,84 @@ export default function VisionAnalysis() {
 
                         </div>
 
-                        <p className="whitespace-pre-wrap">
-
-                          {
-                            msg.content
-                          }
-
-                        </p>
+                        {
+                          msg.role === "assistant" &&
+                          msg.analysis ? (
+                        
+                            <div className="space-y-4">
+                        
+                              <div className="grid grid-cols-2 gap-4">
+                        
+                                <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                  <h3 className="text-green-400 font-semibold">
+                                    🌱 Crop Name
+                                  </h3>
+                                  <p>{msg.analysis.crop_name}</p>
+                                </div>
+                        
+                                <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                  <h3 className="text-green-400 font-semibold">
+                                    📊 Health Status
+                                  </h3>
+                                  <p>{msg.analysis.health_status}</p>
+                                </div>
+                        
+                              </div>
+                        
+                              <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                <h3 className="text-green-400 font-semibold">
+                                  🦠 Disease Detected
+                                </h3>
+                                <p>{msg.analysis.disease_detected}</p>
+                              </div>
+                        
+                              <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                <h3 className="text-green-400 font-semibold">
+                                  ⚠ Severity
+                                </h3>
+                                <p>{msg.analysis.severity}</p>
+                              </div>
+                        
+                              <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                <h3 className="text-green-400 font-semibold">
+                                  💊 Recommendations
+                                </h3>
+                        
+                                <ul className="list-disc pl-5">
+                                  {
+                                    msg.analysis.recommendations?.map(
+                                      (item, index) => (
+                                        <li key={index}>
+                                          {item}
+                                        </li>
+                                      )
+                                    )
+                                  }
+                                </ul>
+                        
+                              </div>
+                        
+                              <div className="bg-[#0b2d22] p-4 rounded-xl">
+                                <h3 className="text-green-400 font-semibold">
+                                  📝 Summary
+                                </h3>
+                        
+                                <p>
+                                  {msg.analysis.summary}
+                                </p>
+                        
+                              </div>
+                        
+                            </div>
+                        
+                          ) : (
+                        
+                            <p className="whitespace-pre-wrap">
+                              {msg.content}
+                            </p>
+                        
+                          )
+                        }
 
                       </div>
 
