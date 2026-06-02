@@ -2,54 +2,88 @@ import axios from "axios";
 
 const api = axios.create({
 
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL:
 
-  headers: {
-    "Content-Type": "application/json",
-  },
+    import.meta.env.VITE_API_URL
+
 });
 
+
 /* ADD JWT TOKEN AUTOMATICALLY */
+
 api.interceptors.request.use(
 
-  (config) => {
+(config)=>{
 
-    const token =
-      localStorage.getItem("token");
+const token=
 
-    if (token) {
+localStorage.getItem(
 
-      config.headers.Authorization =
-        `Bearer ${token}`;
-    }
+"token"
 
-    return config;
-  },
-
-  (error) => {
-    return Promise.reject(error);
-  }
 );
 
+if(token){
+
+config.headers.Authorization=
+
+`Bearer ${token}`;
+
+}
+
+return config;
+
+},
+
+(error)=>{
+
+return Promise.reject(
+
+error
+
+);
+
+}
+
+);
+
+
 /* HANDLE TOKEN EXPIRY */
+
 api.interceptors.response.use(
 
-  (response) => response,
+(response)=>response,
 
-  (error) => {
+(error)=>{
 
-    if (
-      error.response &&
-      error.response.status === 401
-    ) {
+if(
 
-      localStorage.removeItem("token");
+error.response &&
 
-      window.location.href = "/login";
-    }
+error.response.status===401
 
-    return Promise.reject(error);
-  }
+){
+
+localStorage.removeItem(
+
+"token"
+
+);
+
+window.location.href=
+
+"/login";
+
+}
+
+return Promise.reject(
+
+error
+
+);
+
+}
+
 );
 
 export default api;
