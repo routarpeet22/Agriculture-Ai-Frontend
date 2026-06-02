@@ -185,18 +185,16 @@ export default function VisionAnalysis() {
 
         setMessages(
           prev => [
-
+        
             ...prev,
-
+        
             {
-              role:
-                "assistant",
-
-              content:
-                response.data
-                  .response
+              role: "assistant",
+        
+              analysis:
+                response.data.response
             }
-
+        
           ]
         );
 
